@@ -11,15 +11,15 @@
 ## Nome do grupo
 
 ## 👨‍🎓 Integrantes: 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 1</a>
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 2</a>
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 3</a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 4</a> 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do integrante 5</a>
+- <a href="https://github.com/HenriqueSanchesSilva">Henrique Sanches Silva</a> — RM 570527
+- <a href="https://github.com/zjpza">João Pedro Zavanela Andreu</a> — RM 570231
+- <a href="https://github.com/Kayckxz">Kayck Gabriel Evangelista da Silva</a> — RM 572331
+- <a href="https://github.com/lhboschi">Luis Henrique Laurentino Boschi</a> — RM 571352
+- <a href="https://github.com/Trickmelo">Patrick Borges de Melo</a> — RM 574030
 
 ## 👩‍🏫 Professores:
 ### Tutor(a) 
-- <a href="https://www.linkedin.com/company/inova-fusca">Nome do Tutor</a>
+- <a href="https://github.com/nicollycrs">Nicolly de Souza</a>
 ### Coordenador(a)
 - <a href="https://www.linkedin.com/company/inova-fusca">Nome do Coordenador</a>
 
