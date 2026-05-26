@@ -1,4 +1,40 @@
+# .gitignore para Python / FIAP Sompo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Dados (nao subir datasets grandes)
 *.csv
-*.tsv
-*.xls
-*.xlsx
+!src/data/README*
+
+# Modelos ML
+*.pkl
+*.joblib
+*.h5
+*.pth
+
+# Logs e temporarios
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit
+.streamlit/secrets.toml
