@@ -16,10 +16,13 @@
 - <a href="https://github.com/Trickmelo">Patrick Borges de Melo</a> — RM 574030
 
 ## 👩‍🏫 Professores:
-### Tutor(a) 
-- <a href="https://github.com/nicollycrs">Nicolly de Souza</a>
+### Tutor(a)
+
+- Sabrina Otoni
+
 ### Coordenador(a)
-- <a href="https://www.linkedin.com/in/example">Nome do Coordenador</a>
+
+- André Godoi
 
 ## 📜 Descrição
 
