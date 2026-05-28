@@ -28,11 +28,63 @@
 
 Projeto desenvolvido no Challenge Sprint FIAP em parceria com a Sompo Seguros. Objetivo: identificar fatores que elevam a probabilidade de sinistros operacionais em frotas agrícolas e gerar alertas preventivos via Machine Learning.
 
-A solução consolida dados de sensores e telemetria (distância até corpos d'água, umidade do solo, declividade, condições climáticas e histórico de uso), processa-os em um banco SQL e alimenta modelos preditivos que classificam o nível de risco por equipamento ou região — do baixo ao crítico. O resultado é apresentado em dashboards com alertas para Operadores e Gestores de Frota, permitindo uma gestão de segurança reativa a preventiva.
+A solução — chamada **AgroRisk AI** — consolida dados de sensores e telemetria (distância até corpos d'água, umidade do solo, declividade, condições climáticas e histórico de uso), processa-os em um banco SQL e alimenta modelos preditivos que classificam o nível de risco por equipamento ou região — do baixo ao crítico. O resultado é apresentado em dashboards com alertas para Operadores e Gestores de Frota, permitindo uma gestão de segurança reativa a preventiva.
 
 Além disso, todo o histórico de risco é persistido e auditável pelo Analista da Seguradora, garantindo rastreabilidade e confiança nas decisões tomadas.
 
 Tecnologias: Python, Pandas, Scikit-learn, SQLite/MySQL, Streamlit/Flask.
+
+## 🔄 Evolução do Projeto
+
+Este repositório é a continuação do trabalho iniciado na [Sprint 1](https://github.com/HenriqueSanchesSilva/challenger-sprint-1). Na primeira fase, o grupo estruturou o planejamento, definiu personas, user stories, arquitetura da solução e um dataset simulado inicial com 20 registros. Nesta Sprint 2 (Fase 4), o foco é a implementação técnica: banco de dados SQL, modelos preditivos treinados e dashboards funcionais.
+
+### 📋 Resumo da Sprint 1 (Contexto)
+
+| Entrega | Status |
+|---------|--------|
+| Personas (Operador, Gestora, Analista) | ✅ Definidas |
+| User Stories (US-01 a US-09) | ✅ Mapeadas |
+| Dataset simulado inicial | ✅ 20 registros em `data/dataset_simulado.csv` |
+| Arquitetura da solução | ✅ Proposta com sensores IoT → Pipeline → ML → Dashboard |
+| Modelo preditivo (proposta) | ✅ Random Forest / XGBoost com score 0-100 |
+| Métricas de avaliação | ✅ Recall, F1-score, RMSE, AUC-ROC, Feature Importance |
+| Apresentação em vídeo | ✅ [YouTube](https://youtu.be/yq4IOYdmpwk) |
+
+### 🎯 User Stories Priorizadas para Esta Sprint
+
+As seguintes User Stories da Sprint 1 são o foco de implementação nesta entrega:
+
+- **US-01** (Operador): Receber alerta visual antes de entrar em área de alto risco
+- **US-04** (Gestora): Visualizar em mapa o status de risco de cada equipamento
+- **US-07** (Analista): Acessar histórico de alertas emitidos antes de um sinistro
+
+### 📊 Estrutura de Dados (mantida da Sprint 1)
+
+| Variável | Tipo | Descrição |
+|----------|------|-----------|
+| `id_registro` | int | Identificador único |
+| `id_equipamento` | string | Código do equipamento (ex: EQ-MT-0023) |
+| `tipo_equipamento` | string | Colheitadeira / Trator / Pulverizador |
+| `data_hora` | datetime | Timestamp do registro |
+| `latitude` / `longitude` | float | Coordenadas geográficas |
+| `tipo_operacao` | string | Campo ou Transporte |
+| `proximidade_agua_m` | int | Distância de rios/lagos (metros) |
+| `precipitacao_mm` | float | Chuva nas últimas 24h |
+| `umidade_solo_pct` | float | Umidade do solo em % |
+| `tipo_solo` | string | Argiloso / Arenoso / Misto |
+| `declividade_graus` | float | Inclinação do terreno |
+| `temperatura_c` | float | Temperatura ambiente |
+| `velocidade_vento_kmh` | float | Velocidade do vento |
+| `visibilidade_m` | int | Visibilidade em metros |
+| `horas_uso_equipamento` | int | Horas totais de uso |
+| `dias_ultima_manutencao` | int | Dias desde última manutenção |
+| `velocidade_operacao_kmh` | float | Velocidade atual |
+| `carga_pct` | float | % de capacidade de carga |
+| `nivel_combustivel_pct` | float | Nível de combustível |
+| `historico_incidentes` | int | Incidentes nos últimos 12 meses |
+| `score_risco` | int | Score calculado (0–100) |
+| `nivel_risco` | string | Baixo / Médio / Alto / Crítico |
+| `alerta_gerado` | bool | Se alerta foi emitido |
 
 ## 📁 Estrutura de pastas
 
@@ -56,6 +108,22 @@ Dentre os arquivos e pastas presentes na raiz do projeto, definem-se:
 
 - <b>README.md</b>: arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
 
+## 🏗️ Arquitetura da Solução
+
+O fluxo de dados da Sprint 1 foi refinado para esta entrega. A arquitetura é dividida em camadas:
+
+```
+[Sensores IoT / APIs] → [Coleta / ETL] → [Banco SQL] → [Modelos ML] → [Dashboard / Alertas]
+     (Entrada)            (src/data)        (src/sql)     (src/ml)      (src/dashboard)
+```
+
+| Camada | Função | Tecnologia |
+|--------|--------|------------|
+| Ingestão | Gerar e processar dados simulados | Python, Pandas |
+| Persistência | Armazenar dados e scores de risco | SQLite |
+| Inteligência | Treinar modelos e gerar predições | Scikit-learn |
+| Visualização | Exibir mapa, alertas e relatórios | Streamlit |
+
 ## 🔧 Como executar o código
 
 ### Pré-requisitos
@@ -77,22 +145,38 @@ pip install -r requirements.txt
 
 3. Execute os scripts na ordem:
 ```bash
-# 1. Gerar dados simulados
+# 1. Gerar dados simulados (expandido a partir do dataset da Sprint 1)
 python src/data/generate_dataset.py
 
-# 2. Criar features
+# 2. Criar features de risco e normalizar
 python src/data/feature_engineering.py
 
-# 3. Criar banco de dados
+# 3. Criar banco de dados SQLite com schema completo
 sqlite3 sompo.db < src/sql/01_schema.sql
+
+# 4. (Opcional) Inserir dados de exemplo
+sqlite3 sompo.db < src/sql/02_seed_data.sql
+
+# 5. Carregar dados processados no banco
+python src/data/load_to_sql.py
 ```
 
-4. Abra os notebooks de ML com Jupyter:
+4. Treinar e avaliar modelos ML:
 ```bash
-jupyter notebook src/ml/
+# EDA (Análise Exploratória)
+jupyter notebook src/ml/01_eda.ipynb
+
+# Treinamento dos modelos
+jupyter notebook src/ml/02_modelagem.ipynb
+
+# Avaliação estatística
+jupyter notebook src/ml/03_avaliacao.ipynb
+
+# Predição em novos dados
+python src/ml/04_predict.py
 ```
 
-5. Rode o dashboard:
+5. Rodar o dashboard:
 ```bash
 streamlit run src/dashboard/app.py
 ```
